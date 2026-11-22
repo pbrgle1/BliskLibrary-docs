@@ -46,7 +46,22 @@ Models that worked well in our tests: **Qwen-VL** models (for example Qwen 2.5 V
 - Meshes get better tags with rendered views: Blisk offers to render them first (**Render Pictures, Then Tag**).
 - **Species names** (silver birch for `Betula_pendula`) come from the public GBIF species database, online. With a local model they are off, so nothing leaves your PC. To have them, open **Library Settings** > **AI tagging** and tick **Add common names of species**: only the Latin names found in asset names are sent to GBIF.
 
+## Loading and unloading the model
+
+- **The first asset takes a while.** Before the model can answer, the program loads it into video memory, which can take a minute or more for a large model. After that, each asset takes a few seconds.
+- **A loaded model takes a lot of video memory**, about the size of its download: around 6 GB for a 7B model, 17 GB for a 27B one. Unreal and Blisk's thumbnail renders then have that much less, so free it when you have finished tagging:
+  - **Ollama** unloads a model by itself after about 5 minutes without requests. To free the memory at once, run `ollama stop` with the model's name (`ollama ps` lists the loaded ones), or quit Ollama from its tray icon:
+
+    ```
+    ollama ps
+    ollama stop gemma3:27b
+    ```
+
+  - **LM Studio** keeps the model loaded: click **Eject** on the loaded model, or quit LM Studio.
+
 ## If something does not work
+
+- **Unreal is slow, or thumbnails fail, after tagging**: the model is probably still loaded and holding video memory. Unload it (see above).
 
 - **"No local server answered"**: the program is not running, or the address is wrong. Ollama: check the tray icon. LM Studio: the server must be started in the Developer tab.
 - **"None of the installed models can look at pictures"**: download a vision model (see above) and click **Refresh**.
