@@ -50,6 +50,7 @@ Models that worked well in our tests: **Qwen-VL** models (for example Qwen 2.5 V
 
 - **The first asset takes a while.** Before the model can answer, the program loads it into video memory, which can take a minute or more for a large model. After that, each asset takes a few seconds.
 - **A loaded model takes a lot of video memory**, about the size of its download: around 6 GB for a 7B model, 17 GB for a 27B one. Unreal and Blisk's thumbnail renders then have that much less, so free it when you have finished tagging:
+  - **In Blisk**: **Library Settings** > **AI services** shows under **In memory** which model the server holds and how much memory it takes. Click **Unload** to free it. This works with Ollama and with LM Studio 0.4 or newer.
   - **Ollama** unloads a model by itself after about 5 minutes without requests. To free the memory at once, run `ollama stop` with the model's name (`ollama ps` lists the loaded ones), or quit Ollama from its tray icon:
 
     ```

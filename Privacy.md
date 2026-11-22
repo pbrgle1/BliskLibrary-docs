@@ -39,6 +39,8 @@ Keys are stored in `%LOCALAPPDATA%\Blisk\AiKeys.json`, encrypted with Windows (D
 - `Categories.json`, `Collections.json` (with Favorites), `LibraryView.json` (tile size, sort, chips).
 - `AiTagging.json`, `AiServices.json` (service, model, local address; shared with other Blisk products), `AiTranslations.json` (translated words), `AiPresets\` (your own presets).
 - `PolyHaven.json`: your Poly Haven settings (quality, download folder, height maps).
+- `ImportPresets.json`: your import presets and the preset each category uses.
+- `ThumbnailLooks\`: the thumbnail settings you saved per lighting mode, and the names you gave the modes. `ThumbnailSkies\`: the sky pictures you added (copies, at most 2048 pixels wide).
 
 **`%LOCALAPPDATA%\Blisk`** (this computer only):
 
@@ -55,22 +57,23 @@ Keys are stored in `%LOCALAPPDATA%\Blisk\AiKeys.json`, encrypted with Windows (D
 **Inside each library project**, in its `Blisk` folder (on the network drive if the library is there, so shared with everyone who uses it):
 
 - `tags.json`: tags, categories, colours, view and size choices, AI tags and descriptions, and which model and preset made them.
-- `Thumbnails\`: your custom thumbnails.
+- `Thumbnails\`: your custom thumbnails, and the thumbnail settings you kept for single assets (`.look.json`).
 
 **In the projects you work in:**
 
 - A `Blisk` folder with the tags and custom thumbnails of the project's own assets (the project is listed as **This Project**), and `PolyHaven.json` if you chose your own master material for Poly Haven.
+- `Saved\Blisk\LibraryShown.json`: the projects, folders and Poly Haven you hid from this project's Library.
 - Imported assets, in `Content`, with the library's picture as their thumbnail. Poly Haven's in `Content/Blisk/PolyHaven`, and the materials Blisk makes for them in `Content/Blisk/Common`.
-- With built-ahead assets in use: a marked block in the project's personal `Config\UserEngine.ini` that points Unreal at your Build Ahead folder.
+- Once Blisk has kept builds: a marked block in the project's personal `Config\UserEngine.ini` that points Unreal at them (while **Use kept builds in my projects** is on).
 
-**Your Build Ahead folder** (if you chose one): engine data of the assets built ahead (`UE5.8\Blisk_*.ddp` and `.json`).
+**Kept builds**: Unreal's built data of the assets you imported (`UE5.8\Blisk_*.ddp` and `.json`), in `%LOCALAPPDATA%\Blisk\Builds` unless you chose another folder.
 
 **Backups:** before the first change of a day, Blisk copies each settings and tags file to `<file>.bak-<date>` beside it and keeps the last three, so a damaged file can be restored. Your API keys are never copied this way.
 
 ## Removing everything
 
-1. In **Library Settings > Speed and storage**, switch off **Use built-ahead assets in my projects** and click **Remove Built-Ahead Data**. If you chose another Poly Haven download folder, click **Remove** in **Library Settings > Poly Haven > More settings**. Then close Unreal.
+1. In **Library Settings > Speed and storage**, switch off **Use kept builds in my projects** and click **Remove Kept Builds**. If you chose another Poly Haven download folder, click **Remove** in **Library Settings > Poly Haven > More settings**. Then close Unreal.
 2. Disable or uninstall the plugin (**Edit > Plugins**).
-3. Delete `Documents\Blisk` and `%LOCALAPPDATA%\Blisk`, the `Blisk` folder inside each library project and each project you worked in, your Build Ahead folder, and your own Poly Haven download folder if you chose one.
+3. Delete `Documents\Blisk` and `%LOCALAPPDATA%\Blisk`, the `Blisk` folder inside each library project and each project you worked in, the folder of kept builds if you chose your own, and your own Poly Haven download folder if you chose one.
 
 Delete `%LOCALAPPDATA%\Blisk\Helper` with Explorer while Unreal is closed: it can hold links into your library projects, and Explorer removes a link without touching what it points to.
