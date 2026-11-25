@@ -10,6 +10,7 @@ One library of all your Unreal projects and asset packs. Browse them from the pr
 
 - Unreal Engine 5.8 on Windows (64-bit).
 - An editor plugin: nothing of it ends up in a packaged game.
+- Uses Unreal's own **SQLiteCore** plugin (part of the engine), which is turned on with Blisk Library. Nothing else to install.
 - Everything except AI tagging and Poly Haven works without an account or an internet connection. AI tagging needs your own key for an online AI service, or a model running on your PC. Poly Haven needs no account, only the internet to see new assets and to download.
 
 ## Getting started
@@ -80,11 +81,11 @@ The row starting with **SHOW** holds a chip per type: **Static Mesh**, **Materia
 
 ### Categories
 
-Categories sort assets across all your projects (Vegetation › Trees, Interior › Kitchen, Materials › Wood, ...), up to four levels deep (Vegetation › Trees › Deciduous › Oak). An asset is in no category until you put it in one; only meshes, Blueprints, foliage, materials, decals and HDRIs (cube textures) can have a category.
+Categories sort assets across all your projects (Vegetation › Trees, Interior › Kitchen, Materials › Wood, ...), up to six levels deep (Vegetation › Trees › Deciduous › Oak). An asset is in no category until you put it in one; only meshes, Blueprints, foliage, materials, decals and HDRIs (cube textures) can have a category.
 
 - Put assets in a category: right-click > **Category**, the **Category** row in the preview, or drag them onto a category on the left.
 - **Guess Category** puts each selected asset where its type, name, folder and tags suggest.
-- **+** next to **Categories** makes a new one. Right-click a category to add a subcategory (down to the fourth level), rename (or press **F2**) or delete it.
+- **+** next to **Categories** makes a new one. Right-click a category to add a subcategory (down to the sixth level), rename (or press **F2**) or delete it.
 - **Uncategorised** lists the assets that can have a category but have none yet. **Remove from Categories** on an asset's right-click menu takes it out of its category; the asset stays in the library. Deleting takes its subcategories along; their assets move up to the parent category, or to Uncategorised for a top-level one. Showing a category shows its subcategories' assets too.
 - **Thumbnail View** on a category chooses which picture its assets show (for example the front view for trees).
 - **Thumbnail Lighting** on a category chooses the lighting its assets' new pictures are rendered in (for example Studio for furniture, Daylight for plants). Subcategories without their own use their parent's; a category without one uses **Library Settings > Thumbnails > Lighting**. Pictures you have stay until you re-render them.
@@ -218,6 +219,7 @@ Blisk renders its own pictures in the background, with a hidden second copy of U
 - **Set Custom Thumbnail...** uses your own PNG or JPG (or drop an image file onto a tile). **Reset Thumbnail** goes back to Blisk's picture. A picture that is not square keeps its shape on the tile.
 - **Lighting**: **Daylight** (sun and sky), **Studio** or **Interior** (a bright room with windows). An asset's new pictures use its own look if you gave it one (see Thumbnail Look), else its category's **Thumbnail Lighting**, else **Library Settings > Thumbnails > Lighting**.
 - Changes to the lighting or floor apply to new pictures. To update one: right-click the asset > **Thumbnail > Re-render Thumbnail**.
+- **Glass** and other see-through parts show at their own opacity, a little stronger, so a clear glass desk top still reads on the tile. To show glass more or less in pictures rendered from now on, type `Blisk.GlassPower 0.35` in Unreal's console (the **Cmd** box at the bottom of the editor): lower shows glass more, `1` shows it as the material is, `0` goes back to Blisk's own (0.5). It lasts until Unreal closes; to keep it, add `Blisk.GlassPower=0.35` under `[ConsoleVariables]` in your project's `Config/DefaultEngine.ini`. Re-render to update the pictures you have.
 
 If your graphics card has no memory left for the helper, Blisk says so and tries again every minute. Closing other programs that use the graphics card helps.
 
@@ -298,7 +300,7 @@ Open them with the gear in the Library tab, **Blisk > Library Settings...** on t
 
 - **Folders**: your projects and folders, **Add Project or Folder...**, **Look for New Assets**, and per row a tick (shown in this project's Library or not), **Look Through Again** and **Remove from List**.
 - **Poly Haven**: **Show Poly Haven in this project**, the default quality for **Materials and meshes** and for **HDRIs**. Under **More settings**: the **Download folder**, **Height maps for displacement**, **Relief depth** and the **Material** new imports are made from (see Poly Haven above).
-- **Thumbnails**: **Names on tiles** (as in Unreal, or readable: "European Beech 02" for `SM_EuropeanBeech_02`), **Lighting** (Daylight, Studio, Interior, or the names you gave them) with **Edit...** for Thumbnail Look, **Size reference** on tiles (Off, Automatic), **Floor in angled views**. Under **More settings**: the default view, the default material shape, and **Blisk pictures in the Content Browser** (a picture Blisk renders of an asset in this project also becomes its Content Browser thumbnail).
+- **Thumbnails**: **Names on tiles** (as in Unreal, or readable: "European Beech 02" for `SM_EuropeanBeech_02`), **Lighting** (Daylight, Studio, Interior, or the names you gave them) with **Edit...** for Thumbnail Look, **Size reference** on tiles (Off, Automatic), **Floor in angled views**, **Padding** (room around the asset in tiles and the preview, in percent of the picture on each side; shown at once, no new render). Under **More settings**: the default view, the default material shape, and **Blisk pictures in the Content Browser** (a picture Blisk renders of an asset in this project also becomes its Content Browser thumbnail).
 - **AI tagging** and **AI services**: see above.
 - **Import presets**: see above.
 - **Speed and storage**: **Keep the helper ready** (pictures and drags start at once, but the helper uses about 5 GB of memory; it closes after 10 idle minutes), **Stop Background Work**, and the kept builds, marked Experimental (see Faster loading).
